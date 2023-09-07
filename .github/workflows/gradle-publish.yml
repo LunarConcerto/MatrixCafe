@@ -30,11 +30,19 @@ jobs:
         settings-path: ${{ github.workspace }}
 
     - name: 验证 Gradle 包装器
-      uses: gradle/wrapper-validation-action@ccb4328a959376b642e027874838f60f8e596de3
+      uses: gradle/wrapper-validation-action@v1
 
-    - name: 使用 Gradle 构建
-      uses: gradle/gradle-build-action@v2.8.0
+    - name: 设置 Gradle
+      uses: gradle/gradle-build-action@ef76a971e2fa3f867b617efd72f2fbd72cf6f8bc
+
+    - name: Build
+      env:
+        CI: 'true'
+      run: ./gradlew -Dorg.gradle.internal.launcher.welcomeMessageEnabled=false --no-daemon --no-parallel --continue build
+
+    - name: Upload build reports
+      uses: actions/upload-artifact@v3
+      if: failure()
       with:
-        arguments: build
-
-#    - name: 发布
+        name: build-reports
+        path: '**/build/reports/'
