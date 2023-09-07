@@ -1,0 +1,6 @@
+rootProject.name = 'MatrixCafe'
+
+include 'MatrixCafe-Tasks'
+include 'MatrixCafe-Adapter-OneBot'
+include 'MatrixCafe-Core'
+
