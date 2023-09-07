@@ -5,7 +5,7 @@
 # This workflow will build a package using Gradle and then publish it to GitHub packages when a release is created
 # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-gradle
 
-name: Gradle Package
+name: Gradle 构建 & 发布
 
 on:
   push:
@@ -28,6 +28,9 @@ jobs:
         distribution: 'temurin'
         server-id: github
         settings-path: ${{ github.workspace }}
+
+    - name: 验证 Gradle 包装器
+      uses: gradle/wrapper-validation-action@ccb4328a959376b642e027874838f60f8e596de3
 
     - name: 使用 Gradle 构建
       uses: gradle/gradle-build-action@v2.8.0
