@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact name="MatrixCafe.MatrixCafe-Core:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MatrixCafe_MatrixCafe_Core_jar</output-path>
+    <root id="root">
+      <element id="archive" name="MatrixCafe.MatrixCafe-Core.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/MatrixCafe-Core/src/main/resources/META-INF/MANIFEST.MF" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
