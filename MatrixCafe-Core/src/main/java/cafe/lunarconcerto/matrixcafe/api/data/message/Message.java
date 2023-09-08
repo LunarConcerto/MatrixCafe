@@ -41,7 +41,7 @@ public class Message {
     /**
      * 会话元信息
      */
-    protected SessionMetaInfo sessionMetaInfo;
+    protected SessionMetaInfo sessionMetaInfo = SessionMetaInfo.NULL;
 
     protected Sender<?> sender ;
 

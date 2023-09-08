@@ -16,10 +16,11 @@ public record SessionMetaInfo(
         return new SessionMetaInfo(type, id);
     }
 
-
     public static @NotNull SessionMetaInfo of(String id){
         return new SessionMetaInfo(SessionType.UNKNOWN, id);
     }
+
+    public static SessionMetaInfo NULL = of(null);
 
     public long longId(){
         return Long.parseLong(id);
