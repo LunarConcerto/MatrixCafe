@@ -47,7 +47,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.3
       with:
         name: "MatrixCafe"
-        path: MatrixCafe-Core-*.jar
+        path: libs/MatrixCafe-Core-*.jar
 
     - name: 上传构建报告
       uses: actions/upload-artifact@v3
