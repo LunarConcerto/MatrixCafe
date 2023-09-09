@@ -5,6 +5,8 @@ subprojects {
     group 'cafe.lunarconcerto'
     version '1.0'
 
+    sourceCompatibility = 17
+
     repositories {
         mavenCentral()
     }
@@ -35,7 +37,7 @@ subprojects {
         // 默认的 ORM 框架
         implementation 'org.nutz:nutz:1.r.69.v20220215'
         // 缓存框架
-        implementation 'com.github.ben-manes.caffeine:caffeine:3.1.5'
+        implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
         // 事件总线框架
         implementation 'org.greenrobot:eventbus-java:3.3.1'
         // 定时任务框架

@@ -17,3 +17,16 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+
+jar.doFirst {
+
+    manifest {
+
+        attributes(
+                'Main-Class': 'cafe.lunarconcerto.matrixcafe.MatrixCafe'
+        )
+
+    }
+
+}
