@@ -1,9 +1,9 @@
 plugins {
     id 'java'
-
+    id 'maven-publish'
 }
 
-buildDir = rootProject.projectDir
+buildDir = "${rootProject.projectDir}\\build"
 
 group 'cafe.lunarconcerto'
 version '1.0'
@@ -19,6 +19,20 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+publishing {
+
+    repositories {
+
+
+
+    }
+
+    publications {
+
+    }
+
 }
 
 

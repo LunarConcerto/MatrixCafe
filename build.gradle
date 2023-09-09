@@ -2,6 +2,7 @@ subprojects {
 
     /* 信息 */
     apply plugin: 'java'
+    apply plugin: 'maven-publish'
     group 'cafe.lunarconcerto'
     version '1.0'
 
