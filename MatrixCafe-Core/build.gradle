@@ -1,6 +1,9 @@
 plugins {
     id 'java'
+
 }
+
+buildDir = rootProject.projectDir
 
 group 'cafe.lunarconcerto'
 version '1.0'

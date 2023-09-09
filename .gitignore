@@ -5,3 +5,10 @@
 /gen/
 /plugin_lib/
 /MatrixCafe-Core/build/
+/classes/
+/generated/
+/libs/
+/reports/
+/resources/
+/test-results/
+/tmp/
