@@ -50,7 +50,7 @@ jobs:
     - name: 发布 Maven 包
       uses: samuelmeuli/action-maven-publish@v1
       with:
-        directory: /home/runner/.m2/repository/cafe/lunarconcerto/MatrixCafe-Core/
+        directory: /home/runner/.m2/repository/cafe/lunarconcerto/MatrixCafe-Core/1.0
         nexus_username: ${{ secrets.nexus_username }}
         nexus_password: ${{ secrets.nexus_password }}
 
