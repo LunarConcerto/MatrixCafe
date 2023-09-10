@@ -1,5 +1,8 @@
+//file:noinspection GroovyAssignabilityCheck
+
 plugins {
     id 'java'
+    id 'java-library'
     id 'maven-publish'
 }
 
@@ -10,6 +13,11 @@ version '1.0'
 
 repositories {
     mavenCentral()
+}
+
+java {
+//    withJavadocJar()
+    withSourcesJar()
 }
 
 dependencies {
@@ -25,11 +33,39 @@ publishing {
 
     repositories {
 
-
-
     }
 
     publications {
+
+        mavenJava(MavenPublication) {
+            artifactId = 'matrix-cafe-core'
+            from components.java
+            pom {
+                name = 'MatrixCafe-Core'
+                description = 'An auto script bot framework.'
+                url = 'https://github.com/LunarConcerto/MatrixCafe'
+//                properties = []
+//                licenses {
+//                    license {
+//                        name = 'The Apache License, Version 2.0'
+//                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//                    }
+//                }
+                developers {
+                    developer {
+                        id = 'LunarConcerto'
+                        name = 'LunarConcerto'
+                        email = 'LunarConcerto@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/LunarConcerto/MatrixCafe.git'
+                    developerConnection = 'scm:git:ssh://github.com/LunarConcerto/MatrixCafe.git'
+                    url = 'https://github.com/LunarConcerto/MatrixCafe'
+                }
+
+            }
+        }
 
     }
 

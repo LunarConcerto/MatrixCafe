@@ -3,10 +3,15 @@ subprojects {
     /* 信息 */
     apply plugin: 'java'
     apply plugin: 'maven-publish'
+
     group 'cafe.lunarconcerto'
     version '1.0'
 
     sourceCompatibility = 17
+
+    javadoc {
+        options.encoding = 'UTF-8'
+    }
 
     repositories {
         mavenCentral()
