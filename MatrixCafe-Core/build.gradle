@@ -38,7 +38,7 @@ publishing {
     publications {
 
         mavenJava(MavenPublication) {
-            artifactId = 'matrix-cafe-core'
+            artifactId = 'MatrixCafe-Core'
             from components.java
             pom {
                 name = 'MatrixCafe-Core'
