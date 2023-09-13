@@ -38,19 +38,31 @@ publishing {
     publications {
 
         mavenJava(MavenPublication) {
+
             artifactId = 'MatrixCafe-Core'
+
             from components.java
+
             pom {
+
                 name = 'MatrixCafe-Core'
+
                 description = 'An auto script bot framework.'
+
                 url = 'https://github.com/LunarConcerto/MatrixCafe'
-//                properties = []
+
+
+                properties.put("kotlinVersion", '1.8.21')
+
 //                licenses {
 //                    license {
 //                        name = 'The Apache License, Version 2.0'
 //                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
 //                    }
 //                }
+
+
+
                 developers {
                     developer {
                         id = 'LunarConcerto'
@@ -58,11 +70,14 @@ publishing {
                         email = 'LunarConcerto@gmail.com'
                     }
                 }
+
                 scm {
                     connection = 'scm:git:git://github.com/LunarConcerto/MatrixCafe.git'
                     developerConnection = 'scm:git:ssh://github.com/LunarConcerto/MatrixCafe.git'
                     url = 'https://github.com/LunarConcerto/MatrixCafe'
                 }
+
+
 
             }
         }
