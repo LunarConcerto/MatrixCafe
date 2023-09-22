@@ -2,7 +2,7 @@ package cafe.lunarconcerto.matrixcafe.impl;
 
 import cafe.lunarconcerto.matrixcafe.api.common.Application;
 import cafe.lunarconcerto.matrixcafe.api.common.ApplicationContext;
-import cafe.lunarconcerto.matrixcafe.api.common.MessageResolver;
+import cafe.lunarconcerto.matrixcafe.api.data.session.SessionManager;
 import cafe.lunarconcerto.matrixcafe.api.db.Database;
 import cafe.lunarconcerto.matrixcafe.api.config.ConfigurationManager;
 import cafe.lunarconcerto.matrixcafe.api.config.model.MatrixCafeConfiguration;
@@ -38,19 +38,18 @@ public class MatrixCafeModule extends AbstractModule {
     }
 
     @Provides
-    MessageResolver providesMessageResolver(MatrixCafeMessageResolver messageResolver){
-        return messageResolver ;
-    }
-
-    @Provides
     @Inject
     MatrixCafeConfiguration providesMatrixCafeConfiguration(@NotNull MatrixCafeConfigurationManager configurationManager) throws IOException {
         MatrixCafeConfiguration configuration = configurationManager.getConfig(MatrixCafeConfiguration.class);
+
         if (configuration == null){
-            log.error("没有可用的 MatrixCafe 配置文件, 程序将退出.");
+            log.error("没有可用的 MatrixCafe 配置文件.");
+            configurationManager.createConfigFile(MatrixCafeConfiguration.create());
             configurationManager.save();
+            log.info("已生成默认配置文件, 请先进行一次修改, 程序将退出.");
             Application.exit(0);
         }
+
         return configuration ;
     }
 
@@ -73,6 +72,11 @@ public class MatrixCafeModule extends AbstractModule {
     @Provides
     BotManager providesBotManager(MatrixCafeBotManager botManager){
         return botManager ;
+    }
+
+    @Provides
+    SessionManager providesSessionManager(MatrixCafeSessionManager sessionManager){
+        return sessionManager;
     }
 
 }

@@ -1,7 +1,6 @@
 package cafe.lunarconcerto.matrixcafe.impl;
 
 import cafe.lunarconcerto.matrixcafe.api.common.ApplicationContext;
-import cafe.lunarconcerto.matrixcafe.api.common.MessageResolver;
 import cafe.lunarconcerto.matrixcafe.api.db.Database;
 import cafe.lunarconcerto.matrixcafe.api.config.ConfigurationManager;
 import com.google.inject.Injector;
@@ -26,9 +25,6 @@ public class MatrixCafeApplicationContext implements ApplicationContext {
 
     @Inject
     private Database database ;
-
-    @Inject
-    private MessageResolver resolver;
 
     private final Map<String, Object> objects ;
 

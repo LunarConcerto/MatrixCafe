@@ -1,70 +1,137 @@
 package cafe.lunarconcerto.matrixcafe.api.protocol;
 
 
-import cafe.lunarconcerto.matrixcafe.api.data.info.BotInfo;
+import cafe.lunarconcerto.matrixcafe.api.config.bot.BotConfig;
 import cafe.lunarconcerto.matrixcafe.api.data.message.BotMessage;
+import cafe.lunarconcerto.matrixcafe.api.data.message.Message;
 import cafe.lunarconcerto.matrixcafe.api.data.response.ProtocolResponse;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import cafe.lunarconcerto.matrixcafe.api.data.session.SessionManager;
+import cafe.lunarconcerto.matrixcafe.api.responder.ResponderRegistry;
+import jakarta.inject.Inject;
+import lombok.Data;
 
-public interface Bot {
+/**
+ * <h1>Bot</h1>
+ * Bot 是一个独立运行的线程
+ */
+@Data
+public class Bot {
 
-    /**
-     * 获取该 Bot 的元信息
-     * @return 非空的元信息对象
-     */
-    @NotNull BotInfo info();
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * ===================================================================================================================
+     * Constant
+     * ===================================================================================================================
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-    /**
-     * 获取产生该 Bot 的源适配器
-     * @return 非空适配器对象, 如果为空, 将引起异常.
-     */
-    @NotNull Adapter adapter();
+    public static final Bot NULL = new Bot();
 
-    /**
-     * 向该 Bot 发送一条消息.
-     * <p>
-     * 该消息应为由 MatrixCafe 抽象的消息类对象.
-     * 由 Bot 实现转化为对应平台的消息并发出.
-     * @param message 消息对象
-     * @return 可能存在的响应
-     */
-    ProtocolResponse<?> send(BotMessage message);
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * ===================================================================================================================
+     * Field
+     * ===================================================================================================================
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-    /**
-     * 向该 Bot 发送一条异步消息.
-     * <p>
-     * 对于异步消息, 发出后往往无法立即收到回复.
-     * <p>
-     * 该消息应为由 MatrixCafe 抽象的消息类对象.
-     * 由 Bot 实现转化为对应平台的消息并发出.
-     * @param message 消息对象
-     */
-    void sendAsync(BotMessage message);
+    @Inject
+    protected ResponderRegistry registry;
 
-    /**
-     * 禁用 Bot
-     * <p>
-     * 调用该方法则使得该 Bot 停止处理消息收发.
-     */
-    void disable();
+    @Inject
+    protected SessionManager sessionManager ;
 
-    /**
-     * 启用 Bot
-     * <p>
-     * 调用该方法则使得该 Bot 重新开始处理消息手法.
-     */
-    void enable();
+    protected BotConfig config;
+
+    protected Adapter adapter;
 
     /**
      * 指示该 Bot 是否是异步的消息发送者.
      * <p>
      * 如果是异步的消息发送者, 则启用无返回值类型的send方法.
      */
-    boolean isAsyncSender();
+    protected boolean asyncSender;
 
-    default boolean isSyncSender(){
-        return !isAsyncSender();
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * ===================================================================================================================
+     * Container
+     * ===================================================================================================================
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+    public Bot(BotConfig config) {
+        this.config = config;
+
+        initialize();
     }
+
+    private Bot() { config = null; }
+
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * ===================================================================================================================
+     * Private Method
+     * ===================================================================================================================
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+    protected void initialize(){
+
+    }
+
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * ===================================================================================================================
+     * Public Method
+     * ===================================================================================================================
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+    /**
+     * <h1>处理一条新信息</h1>
+     * <p>
+     * 该方法一般由适配器进行调用, 适配器对 Bot 进行绑定后, 将特定消息转发到对应的 Bot 的该方法进行处理.
+     * @param message 目标信息
+     */
+    public void resolveMessage(Message message){
+
+    }
+
+    /**
+     * <h1>向 Bot 发送一条消息.</h1>
+     * <p>
+     * 该消息应为由 MatrixCafe 抽象的消息类对象.
+     * 由 适配器 实现转化为对应平台的消息并发出.
+     * @param message 消息对象
+     * @return 可能存在的响应
+     */
+    public ProtocolResponse<?> send(BotMessage message){
+        return adapter.send(message);
+    }
+
+    /**
+     * <h1>向 Bot 发送一条异步消息.</h1>
+     * <p>
+     * 对于异步消息, 发出后往往无法立即收到回复.
+     * 因此该方法没有返回值.
+     * 也可以将此方法当做一个忽略返回值的 {@link Bot#send(BotMessage)} 方法使用.
+     * <p>
+     * 该消息应为由 MatrixCafe 抽象的消息类对象.
+     * 由 Bot 实现转化为对应平台的消息并发出.
+     * @param message 消息对象
+     */
+    public void sendAsync(BotMessage message){
+
+    }
+
+    /**
+     * <h1>禁用 Bot</h1>
+     * <p>
+     * 调用该方法则使得该 Bot 停止处理消息收发.
+     */
+    public void disable(){
+        adapter.unbind(this);
+    }
+
+    /**
+     * <h1>启用 Bot</h1>
+     * <p>
+     * 调用该方法则使得该 Bot 重新开始处理消息收发.
+     */
+    public void enable(){
+        adapter.bind(this);
+    }
+
 
 }

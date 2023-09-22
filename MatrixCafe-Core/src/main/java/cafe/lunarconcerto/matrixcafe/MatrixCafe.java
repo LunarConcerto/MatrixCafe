@@ -10,7 +10,6 @@ import cafe.lunarconcerto.matrixcafe.api.extension.ExtensionManager;
 import cafe.lunarconcerto.matrixcafe.api.extension.ExtensionRegistry;
 import cafe.lunarconcerto.matrixcafe.api.plugin.PluginManager;
 import cafe.lunarconcerto.matrixcafe.api.protocol.Adapter;
-import cafe.lunarconcerto.matrixcafe.api.protocol.Bot;
 import cafe.lunarconcerto.matrixcafe.api.schedule.*;
 import cafe.lunarconcerto.matrixcafe.api.web.ws.WebSocketServer;
 import cafe.lunarconcerto.matrixcafe.impl.MatrixCafeAdapterManager;
@@ -101,12 +100,6 @@ public class MatrixCafe {
     private Database database ;
 
     /**
-     * 消息解析器
-     */
-    @Inject
-    private MessageResolver messageResolver;
-
-    /**
      * 机器人管理器
      */
     @Inject
@@ -128,6 +121,7 @@ public class MatrixCafe {
      * @param args 命令行参数
      */
     public static void launch(String[] args){
+        Thread.currentThread().setName("MatrixCafe");
         log.info("## MatrixCafe application starting...");
         SystemInfo.create();
         try {
@@ -182,12 +176,6 @@ public class MatrixCafe {
     private void initializeConfiguration() throws IOException {
         Thread.setDefaultUncaughtExceptionHandler(this::exceptionHandler);
 
-        if (configuration == null){
-            log.error("没有可用的 MatrixCafe 配置文件, 程序将退出.");
-            configurationManager.save();
-            Application.exit(0);
-        }
-
         if (configuration.getMode() == MessageMode.ACTIVE) {
             log.info("配置模式为主动, 开始初始化主动模式.");
             setupActiveMode();
@@ -229,7 +217,7 @@ public class MatrixCafe {
                 log.error("没有可用的协议适配器, 程序将退出.");
                 Application.exit(0);
             }else{
-                log.warn("警告:   没有可用的协议适配器!");
+                log.warn("警告:\t没有可用的协议适配器!");
             }
         }
     }
@@ -264,14 +252,16 @@ public class MatrixCafe {
         List<Extension> extensions = extensionRegistry.find(Adapter.class);
         for (Extension extension : extensions) {
             Adapter adapter = (Adapter) extension;
-            adapter.setup(messageResolver);
-            Collection<Bot> bots = adapter.createBot();
-            if (bots != null){
-                botManager.addAllBot(bots);
-            }else {
-                log.warn("适配器 {} 没有返回可用的 Bot 实例", adapter.identifier());
-            }
         }
+
+        int botCount = botManager.botCount();
+
+        if (botCount == 0){
+            log.warn("警告:\t没有可用的Bot");
+        }else {
+            log.info("创建了 {} 个 Bot 实例", botCount);
+        }
+
         stateMachine.enterState(ApplicationState.WORKING);
     }
 

@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class WebSocketServerInfo {
 
+    private boolean enable = false;
+
     private int port = 3005;
 
     private String path = "";

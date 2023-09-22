@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.jetbrains.annotations.NotNull;
 
 @Data
 @ToString
@@ -19,6 +20,14 @@ import lombok.ToString;
 @ConfigurationShouldSave(false)
 @ApplicationContext.InApplicationContextName("config")
 public class MatrixCafeConfiguration {
+
+    public static @NotNull MatrixCafeConfiguration create(){
+        MatrixCafeConfiguration configuration = new MatrixCafeConfiguration();
+        configuration.setHttpServerInfo(new HttpServerInfo());
+        configuration.setDb(new DatabaseConnectionInfo());
+        configuration.setWebSocketServer(new WebSocketServerInfo());
+        return configuration;
+    }
 
     /**
      * 该配置文件的文件名

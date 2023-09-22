@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HttpServerInfo {
 
+    private boolean enable = true ;
+
     private int port = 3006 ;
 
 }

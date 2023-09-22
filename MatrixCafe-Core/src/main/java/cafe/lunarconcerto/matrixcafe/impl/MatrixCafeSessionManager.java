@@ -7,8 +7,10 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.jetbrains.annotations.NotNull;
 
+import javax.inject.Singleton;
 import java.util.Optional;
 
+@Singleton
 public class MatrixCafeSessionManager implements SessionManager {
 
     protected Cache<SessionMetaInfo, Session> sessionCache;

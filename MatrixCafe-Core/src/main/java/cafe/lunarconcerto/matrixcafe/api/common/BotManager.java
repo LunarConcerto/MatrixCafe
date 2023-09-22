@@ -1,5 +1,6 @@
 package cafe.lunarconcerto.matrixcafe.api.common;
 
+import cafe.lunarconcerto.matrixcafe.api.config.bot.BotConfig;
 import cafe.lunarconcerto.matrixcafe.api.protocol.Bot;
 
 import java.util.Collection;
@@ -7,12 +8,10 @@ import java.util.List;
 
 public interface BotManager {
 
-    List<Bot> findByAdapterId(String adapter);
+    Bot createBot(BotConfig botConfig);
 
-    List<Bot> findByBotId(String id);
+    List<Bot> findBotById(String id);
 
-    void addBot(Bot bot);
-
-    void addAllBot(Collection<Bot> bots);
+    int botCount();
 
 }
