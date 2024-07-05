@@ -1,6 +1,6 @@
 package cafe.lunarconcerto.matrixcafe.impl;
 
-import cafe.lunarconcerto.matrixcafe.api.common.ApplicationContext;
+import cafe.lunarconcerto.matrixcafe.api.application.ApplicationContext;
 import cafe.lunarconcerto.matrixcafe.api.db.Database;
 import cafe.lunarconcerto.matrixcafe.api.config.ConfigurationManager;
 import com.google.inject.Injector;

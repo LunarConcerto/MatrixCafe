@@ -70,14 +70,16 @@ public class MatrixCafeExtensionRegistry implements ExtensionRegistry {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T> List<Extension> find(Class<T> type) {
+    public <T extends Extension> List<T> find(Class<T> type) {
         if (extensionManagerMap.containsKey(type)){
-            ExtensionManager<? extends Extension> manager = extensionManagerMap.get(type);
-            return (List<Extension>) manager.all();
+            ExtensionManager<T> manager = (ExtensionManager<T>) extensionManagerMap.get(type);
+            return manager.all();
         }
 
-        return extensionMap.values().stream()
+        return extensionMap.values()
+                .stream()
                 .filter(extension -> type.isAssignableFrom(extension.getClass()))
+                .map(item -> (T) item)
                 .collect(Collectors.toCollection(LinkedList::new));
     }
 

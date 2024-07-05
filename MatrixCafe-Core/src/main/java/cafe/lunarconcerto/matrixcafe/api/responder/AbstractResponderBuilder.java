@@ -39,4 +39,5 @@ public abstract class AbstractResponderBuilder {
     protected int getPriority() {
         return priority;
     }
+
 }

@@ -10,7 +10,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- *
+ * 响应器注册表
+ * 管理所有响应器和响应器组.
  * @author LunarConcerto
  */
 @Singleton
@@ -25,6 +26,11 @@ public final class ResponderRegistry extends ResponderGroup<InterceptionResponde
         responderToResponderGroupList = new ConcurrentHashMap<>();
     }
 
+    /**
+     * 根据id获取响应器
+     * @param id 目标id
+     * @return 若不存在传入id所对应的响应器, 返回null
+     */
     public InterceptionResponder find(String id){
         return idToResponderMap.get(id);
     }
@@ -64,6 +70,11 @@ public final class ResponderRegistry extends ResponderGroup<InterceptionResponde
         return Collections.emptyList();
     }
 
+    /**
+     * 进行响应器匹配
+     * @param message
+     * @return
+     */
     @Contract(pure = true)
     @Override
     public @NotNull MatchResult match(SessionMessage message) {

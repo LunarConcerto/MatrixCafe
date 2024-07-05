@@ -19,7 +19,7 @@ public class TextToMessageContentAction implements CommonAction {
     }
 
     @Override
-    public MessageContent start(ActionData message) {
-        return new TextContent(textAction.start(message));
+    public MessageContent doAction(ActionParam message) {
+        return new TextContent(textAction.doAction(message));
     }
 }

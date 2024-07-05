@@ -1,6 +1,6 @@
 package cafe.lunarconcerto.matrixcafe.api.plugin.model;
 
-import cafe.lunarconcerto.matrixcafe.api.common.ApplicationContext;
+import cafe.lunarconcerto.matrixcafe.api.application.ApplicationContext;
 import cafe.lunarconcerto.matrixcafe.api.plugin.Plugin;
 import cafe.lunarconcerto.matrixcafe.api.plugin.PluginClassLoader;
 import cafe.lunarconcerto.matrixcafe.api.util.Strings;
@@ -12,7 +12,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
-import java.util.Objects;
 
 /**
  * Plugin 主类容器, 存储其类信息、类实例等.
@@ -120,6 +119,15 @@ public final class PluginClassContainer {
     public boolean enablePlugin() throws Exception {
         if (isInstantiated() && isStandardPlugin()) {
             getStandardPluginInstance().onEnable();
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean disablePlugin() throws Exception {
+        if (isInstantiated() && isStandardPlugin()) {
+            getStandardPluginInstance().onDisable();
             return true;
         }else{
             return false;
@@ -265,4 +273,6 @@ public final class PluginClassContainer {
     public boolean isInstantiated(){
         return pluginInstance != null ;
     }
+
+
 }

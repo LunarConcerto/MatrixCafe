@@ -3,8 +3,8 @@ package cafe.lunarconcerto.matrixcafe.api.responder;
 import cafe.lunarconcerto.matrixcafe.api.data.message.BotMessage;
 import cafe.lunarconcerto.matrixcafe.api.data.message.SessionMessage;
 import cafe.lunarconcerto.matrixcafe.api.data.message.content.MessageContent;
-import cafe.lunarconcerto.matrixcafe.api.data.response.ResponseResult;
-import cafe.lunarconcerto.matrixcafe.api.responder.action.ActionData;
+import cafe.lunarconcerto.matrixcafe.api.data.response.Response;
+import cafe.lunarconcerto.matrixcafe.api.responder.action.ActionParam;
 import cafe.lunarconcerto.matrixcafe.api.responder.descriptor.ResponderDescriptor;
 import cafe.lunarconcerto.matrixcafe.api.responder.descriptor.TextDescriptor;
 import cafe.lunarconcerto.matrixcafe.api.util.Randoms;
@@ -65,10 +65,10 @@ public abstract class Responder implements Comparable<Responder>{
      * @param data 收到的消息
      * @return 响应结果
      */
-    public abstract ResponseResult<?> respond(ActionData data);
+    public abstract Response<?> respond(ActionParam data);
 
-    protected ResponseResult<?> sendReply(MessageContent content, @NotNull SessionMessage message){
-        return ResponseResult.okResponse(message.getBot().send(new BotMessage(message, content)));
+    protected Response<?> sendReply(MessageContent content, @NotNull SessionMessage message){
+        return Response.okResponse(message.getBot().send(new BotMessage(message, content)));
     }
 
     private @NotNull String generateId(String id){

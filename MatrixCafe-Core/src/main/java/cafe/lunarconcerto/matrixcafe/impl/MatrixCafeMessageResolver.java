@@ -1,9 +1,9 @@
 package cafe.lunarconcerto.matrixcafe.impl;
 
-import cafe.lunarconcerto.matrixcafe.api.common.MessageResolver;
+import cafe.lunarconcerto.matrixcafe.api.application.MessageResolver;
 import cafe.lunarconcerto.matrixcafe.api.data.message.Message;
 import cafe.lunarconcerto.matrixcafe.api.data.message.SessionMessage;
-import cafe.lunarconcerto.matrixcafe.api.data.response.ResponseResult;
+import cafe.lunarconcerto.matrixcafe.api.data.response.Response;
 import cafe.lunarconcerto.matrixcafe.api.data.session.SessionManager;
 import cafe.lunarconcerto.matrixcafe.api.responder.InterceptionResponder;
 import cafe.lunarconcerto.matrixcafe.api.responder.MatchResult;
@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Singleton
+@Deprecated
 public class MatrixCafeMessageResolver implements MessageResolver {
 
     @Inject
@@ -44,7 +45,7 @@ public class MatrixCafeMessageResolver implements MessageResolver {
                         if (result.isOk()) {
                             return callResponder(result);
                         }
-                        return ResponseResult.FAILURE ;
+                        return Response.FAILURE ;
                     })
                     .get(10, TimeUnit.SECONDS);
         } catch (Exception e) {
@@ -53,7 +54,7 @@ public class MatrixCafeMessageResolver implements MessageResolver {
     }
 
     @Contract(pure = true)
-    private @Nullable ResponseResult<?> callResponder(@NotNull MatchResult matchResult){
+    private @Nullable Response<?> callResponder(@NotNull MatchResult matchResult){
         if (!matchResult.haveTarget()) {
             return null;
         }

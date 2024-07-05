@@ -1,14 +1,14 @@
 package cafe.lunarconcerto.matrixcafe.impl;
 
-import cafe.lunarconcerto.matrixcafe.api.common.Application;
-import cafe.lunarconcerto.matrixcafe.api.common.ApplicationContext;
+import cafe.lunarconcerto.matrixcafe.api.application.Application;
+import cafe.lunarconcerto.matrixcafe.api.application.ApplicationContext;
 import cafe.lunarconcerto.matrixcafe.api.data.session.SessionManager;
 import cafe.lunarconcerto.matrixcafe.api.db.Database;
 import cafe.lunarconcerto.matrixcafe.api.config.ConfigurationManager;
-import cafe.lunarconcerto.matrixcafe.api.config.model.MatrixCafeConfiguration;
+import cafe.lunarconcerto.matrixcafe.api.config.MatrixCafeConfiguration;
 import cafe.lunarconcerto.matrixcafe.api.extension.ExtensionRegistry;
 import cafe.lunarconcerto.matrixcafe.api.plugin.PluginManager;
-import cafe.lunarconcerto.matrixcafe.api.common.BotManager;
+import cafe.lunarconcerto.matrixcafe.api.bot.BotManager;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.google.inject.AbstractModule;

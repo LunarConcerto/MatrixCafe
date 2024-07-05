@@ -20,7 +20,7 @@ public interface ExtensionRegistry {
 
     <T extends Extension> void unregister(Class<T> manageExtensionType);
 
-    <T> List<Extension> find(Class<T> type);
+    <T extends Extension> List<T> find(Class<T> type);
 
     Optional<Extension> find(String name);
 

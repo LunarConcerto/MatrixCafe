@@ -1,7 +1,7 @@
 package cafe.lunarconcerto.matrixcafe.impl;
 
-import cafe.lunarconcerto.matrixcafe.api.common.DirectoryConstants;
-import cafe.lunarconcerto.matrixcafe.api.common.ApplicationContext;
+import cafe.lunarconcerto.matrixcafe.api.application.DirectoryConstants;
+import cafe.lunarconcerto.matrixcafe.api.application.ApplicationContext;
 import cafe.lunarconcerto.matrixcafe.api.extension.ExtensionRegistry;
 import cafe.lunarconcerto.matrixcafe.api.plugin.*;
 import cafe.lunarconcerto.matrixcafe.api.plugin.model.PluginClassContainer;
@@ -24,18 +24,25 @@ import java.util.Optional;
 @Singleton
 public class MatrixCafePluginManager implements PluginManager {
 
+    // 程序上下文
     protected final ApplicationContext applicationContext;
 
+    // 拓展注册表
     protected final ExtensionRegistry extensionRegistry;
 
+    // 插件读取器
     protected PluginLoader loader ;
 
+    // 插件依赖解析器
     protected PluginDependencyResolver resolver ;
 
+    // 插件工件依赖解析器
     protected ArtifactDependencyResolver artifactResolver ;
 
+    // 当前存在的插件表
     protected Map<String, PluginClassContainer> existPluginMap;
 
+    // 已排序的插件
     protected List<String> sortedPluginList ;
 
     /**
@@ -46,8 +53,7 @@ public class MatrixCafePluginManager implements PluginManager {
     @Inject
     public MatrixCafePluginManager(ApplicationContext applicationContext,
                                    ExtensionRegistry extensionRegistry,
-                                   Injector injector)
-    {
+                                   Injector injector) {
         this.applicationContext = applicationContext;
         this.extensionRegistry = extensionRegistry;
         this.injector = injector;
@@ -151,6 +157,17 @@ public class MatrixCafePluginManager implements PluginManager {
             }
         }
         return count ;
+    }
+
+    @Override
+    public void disableAll() {
+        for (PluginClassContainer container : existPluginMap.values()) {
+            try {
+                container.disablePlugin();
+            } catch (Exception e) {
+                throw new PluginException(e, container);
+            }
+        }
     }
 
     public List<PluginPackageContainer> getPluginPackageContainers() {

@@ -1,8 +1,8 @@
 package cafe.lunarconcerto.matrixcafe.api.responder.action;
 
-public interface TextCommonAction extends Action<String, ActionData>{
+public interface TextCommonAction extends Action<String, ActionParam>{
 
     @Override
-    String start(ActionData message);
+    String doAction(ActionParam message);
 
 }

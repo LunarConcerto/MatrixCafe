@@ -6,7 +6,7 @@ import java.io.File;
  * @author LunarConcerto
  * @time 2023/5/19
  */
-public class FileElement implements Element{
+public class FileElement implements Element {
 
     protected File file ;
 
@@ -17,4 +17,5 @@ public class FileElement implements Element{
     public File getFile() {
         return file;
     }
+
 }

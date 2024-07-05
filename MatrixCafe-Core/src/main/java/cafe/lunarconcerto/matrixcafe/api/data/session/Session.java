@@ -1,6 +1,6 @@
 package cafe.lunarconcerto.matrixcafe.api.data.session;
 
-import cafe.lunarconcerto.matrixcafe.api.protocol.Bot;
+import cafe.lunarconcerto.matrixcafe.api.bot.Bot;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

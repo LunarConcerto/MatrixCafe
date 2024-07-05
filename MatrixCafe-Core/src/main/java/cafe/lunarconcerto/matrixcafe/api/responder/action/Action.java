@@ -1,7 +1,7 @@
 package cafe.lunarconcerto.matrixcafe.api.responder.action;
 
-public interface Action<Return, Data extends ActionData> {
+public interface Action<Return, Param extends ActionParam> {
 
-    Return start(Data data);
+    Return doAction(Param param);
 
 }

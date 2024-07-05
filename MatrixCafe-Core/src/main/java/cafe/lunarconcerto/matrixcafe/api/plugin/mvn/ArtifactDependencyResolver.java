@@ -1,6 +1,6 @@
 package cafe.lunarconcerto.matrixcafe.api.plugin.mvn;
 
-import cafe.lunarconcerto.matrixcafe.api.common.DirectoryConstants;
+import cafe.lunarconcerto.matrixcafe.api.application.DirectoryConstants;
 import cafe.lunarconcerto.matrixcafe.api.plugin.model.PluginClassContainer;
 import cafe.lunarconcerto.matrixcafe.api.util.Strings;
 import lombok.extern.slf4j.Slf4j;

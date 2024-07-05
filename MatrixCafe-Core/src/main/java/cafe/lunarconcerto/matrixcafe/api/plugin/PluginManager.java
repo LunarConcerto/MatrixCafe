@@ -61,4 +61,5 @@ public interface PluginManager {
      */
     int enabledPluginCount();
 
+    void disableAll();
 }

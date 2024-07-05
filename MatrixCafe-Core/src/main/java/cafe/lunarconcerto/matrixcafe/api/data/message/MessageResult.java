@@ -1,5 +1,8 @@
 package cafe.lunarconcerto.matrixcafe.api.data.message;
 
+/**
+ * 表示一条消息被响应的状态
+ */
 public enum MessageResult {
 
     /**

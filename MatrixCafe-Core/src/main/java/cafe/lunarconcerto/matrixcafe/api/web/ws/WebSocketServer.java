@@ -1,8 +1,8 @@
 package cafe.lunarconcerto.matrixcafe.api.web.ws;
 
-import cafe.lunarconcerto.matrixcafe.api.config.model.MatrixCafeConfiguration;
-import cafe.lunarconcerto.matrixcafe.api.config.model.WebSocketServerInfo;
-import cafe.lunarconcerto.matrixcafe.api.common.Bus;
+import cafe.lunarconcerto.matrixcafe.api.config.MatrixCafeConfiguration;
+import cafe.lunarconcerto.matrixcafe.api.config.WebSocketServerInfo;
+import cafe.lunarconcerto.matrixcafe.api.application.Bus;
 import io.javalin.Javalin;
 import io.javalin.websocket.*;
 import lombok.AllArgsConstructor;

@@ -3,15 +3,15 @@ package cafe.lunarconcerto.matrixcafe.api.responder.action;
 import cafe.lunarconcerto.matrixcafe.api.data.message.content.MessageContent;
 import cafe.lunarconcerto.matrixcafe.api.data.message.content.TextContent;
 
-public interface CommonAction extends Action<MessageContent, ActionData> {
+public interface CommonAction extends Action<MessageContent, ActionParam> {
 
     CommonAction EMPTY_ACTION = CommonAction::emptyAction;
 
-    static MessageContent emptyAction(ActionData data) {
+    static MessageContent emptyAction(ActionParam data) {
         return TextContent.EMPTY;
     }
 
     @Override
-    MessageContent start(ActionData message);
+    MessageContent doAction(ActionParam message);
 
 }

@@ -1,6 +1,6 @@
 package cafe.lunarconcerto.matrixcafe.api.schedule;
 
-import cafe.lunarconcerto.matrixcafe.api.common.Bus;
+import cafe.lunarconcerto.matrixcafe.api.application.Bus;
 import cafe.lunarconcerto.matrixcafe.api.data.event.time.ChimeEvent;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;

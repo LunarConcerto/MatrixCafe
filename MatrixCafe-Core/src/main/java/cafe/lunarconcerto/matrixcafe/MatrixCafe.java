@@ -1,15 +1,15 @@
 package cafe.lunarconcerto.matrixcafe;
 
-import cafe.lunarconcerto.matrixcafe.api.common.*;
+import cafe.lunarconcerto.matrixcafe.api.application.*;
 import cafe.lunarconcerto.matrixcafe.api.config.ConfigurationManager;
-import cafe.lunarconcerto.matrixcafe.api.config.model.MatrixCafeConfiguration;
+import cafe.lunarconcerto.matrixcafe.api.config.MatrixCafeConfiguration;
 import cafe.lunarconcerto.matrixcafe.api.data.info.SystemInfo;
 import cafe.lunarconcerto.matrixcafe.api.db.Database;
-import cafe.lunarconcerto.matrixcafe.api.extension.Extension;
 import cafe.lunarconcerto.matrixcafe.api.extension.ExtensionManager;
 import cafe.lunarconcerto.matrixcafe.api.extension.ExtensionRegistry;
 import cafe.lunarconcerto.matrixcafe.api.plugin.PluginManager;
-import cafe.lunarconcerto.matrixcafe.api.protocol.Adapter;
+import cafe.lunarconcerto.matrixcafe.api.extension.adapter.Adapter;
+import cafe.lunarconcerto.matrixcafe.api.bot.BotManager;
 import cafe.lunarconcerto.matrixcafe.api.schedule.*;
 import cafe.lunarconcerto.matrixcafe.api.web.ws.WebSocketServer;
 import cafe.lunarconcerto.matrixcafe.impl.MatrixCafeAdapterManager;
@@ -25,7 +25,6 @@ import org.quartz.SchedulerException;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -175,17 +174,6 @@ public class MatrixCafe {
 
     private void initializeConfiguration() throws IOException {
         Thread.setDefaultUncaughtExceptionHandler(this::exceptionHandler);
-
-        if (configuration.getMode() == MessageMode.ACTIVE) {
-            log.info("配置模式为主动, 开始初始化主动模式.");
-            setupActiveMode();
-        }else{
-            log.info("配置模式为被动, 开始初始化被动模式.");
-        }
-    }
-
-    private void setupActiveMode() {
-        // TODO
     }
 
     private void setupPlugins() throws Exception {
@@ -211,7 +199,7 @@ public class MatrixCafe {
             return;
         }
 
-        List<Extension> extensions = extensionRegistry.find(Adapter.class);
+        List<Adapter> extensions = extensionRegistry.find(Adapter.class);
         if (extensions.isEmpty()){
             if (configuration.isNoAdapterExit()){
                 log.error("没有可用的协议适配器, 程序将退出.");
@@ -249,19 +237,6 @@ public class MatrixCafe {
     }
 
     private void setupBots(){
-        List<Extension> extensions = extensionRegistry.find(Adapter.class);
-        for (Extension extension : extensions) {
-            Adapter adapter = (Adapter) extension;
-        }
-
-        int botCount = botManager.botCount();
-
-        if (botCount == 0){
-            log.warn("警告:\t没有可用的Bot");
-        }else {
-            log.info("创建了 {} 个 Bot 实例", botCount);
-        }
-
         stateMachine.enterState(ApplicationState.WORKING);
     }
 

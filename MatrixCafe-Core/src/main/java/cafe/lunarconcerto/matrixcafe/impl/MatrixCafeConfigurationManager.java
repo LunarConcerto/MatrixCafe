@@ -1,9 +1,9 @@
 package cafe.lunarconcerto.matrixcafe.impl;
 
 
-import cafe.lunarconcerto.matrixcafe.api.common.DirectoryConstants;
+import cafe.lunarconcerto.matrixcafe.api.application.DirectoryConstants;
 import cafe.lunarconcerto.matrixcafe.api.config.*;
-import cafe.lunarconcerto.matrixcafe.api.config.model.MatrixCafeConfiguration;
+import cafe.lunarconcerto.matrixcafe.api.config.MatrixCafeConfiguration;
 import cafe.lunarconcerto.matrixcafe.api.util.Strings;
 import com.google.inject.Singleton;
 import lombok.Getter;

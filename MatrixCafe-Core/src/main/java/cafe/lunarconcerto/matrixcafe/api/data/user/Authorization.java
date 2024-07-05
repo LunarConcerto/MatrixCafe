@@ -21,4 +21,5 @@ public enum Authorization {
     public int getLevel() {
         return level;
     }
+
 }

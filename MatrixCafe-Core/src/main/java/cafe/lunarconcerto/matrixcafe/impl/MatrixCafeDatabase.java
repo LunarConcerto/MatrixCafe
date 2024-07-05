@@ -1,9 +1,9 @@
 package cafe.lunarconcerto.matrixcafe.impl;
 
 import cafe.lunarconcerto.matrixcafe.api.db.Database;
-import cafe.lunarconcerto.matrixcafe.api.config.model.DatabaseConnectionInfo;
-import cafe.lunarconcerto.matrixcafe.api.config.model.DatabaseType;
-import cafe.lunarconcerto.matrixcafe.api.config.model.MatrixCafeConfiguration;
+import cafe.lunarconcerto.matrixcafe.api.config.DatabaseConnectionInfo;
+import cafe.lunarconcerto.matrixcafe.api.config.DatabaseType;
+import cafe.lunarconcerto.matrixcafe.api.config.MatrixCafeConfiguration;
 import com.google.inject.Singleton;
 import com.mysql.cj.jdbc.Driver;
 import com.zaxxer.hikari.HikariDataSource;

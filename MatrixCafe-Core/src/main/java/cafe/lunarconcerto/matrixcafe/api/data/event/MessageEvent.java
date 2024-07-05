@@ -1,6 +1,6 @@
 package cafe.lunarconcerto.matrixcafe.api.data.event;
 
-import cafe.lunarconcerto.matrixcafe.api.common.Bus;
+import cafe.lunarconcerto.matrixcafe.api.application.Bus;
 import cafe.lunarconcerto.matrixcafe.api.data.message.Message;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;

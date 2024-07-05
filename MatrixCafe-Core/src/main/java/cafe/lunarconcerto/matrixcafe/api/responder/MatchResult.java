@@ -1,7 +1,7 @@
 package cafe.lunarconcerto.matrixcafe.api.responder;
 
 import cafe.lunarconcerto.matrixcafe.api.data.response.ResponseStatus;
-import cafe.lunarconcerto.matrixcafe.api.responder.action.ActionData;
+import cafe.lunarconcerto.matrixcafe.api.responder.action.ActionParam;
 import cafe.lunarconcerto.matrixcafe.api.util.Strings;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
  * @author LunarConcerto
  * @time 2023/6/5
  */
-public record MatchResult(String matchedResponderId, ResponseStatus status, ActionData data) {
+public record MatchResult(String matchedResponderId, ResponseStatus status, ActionParam data) {
 
     public static final MatchResult OK = new MatchResult(Strings.EMPTY, ResponseStatus.OK, null);
 
@@ -19,15 +19,15 @@ public record MatchResult(String matchedResponderId, ResponseStatus status, Acti
 
     public static final MatchResult UNDEFINE = new MatchResult(Strings.EMPTY, ResponseStatus.UNDEFINE, null);
 
-    public static @NotNull MatchResult ok(String matchedResponderId, ActionData data) {
+    public static @NotNull MatchResult ok(String matchedResponderId, ActionParam data) {
         return new MatchResult(matchedResponderId, ResponseStatus.OK, data);
     }
 
-    public static @NotNull MatchResult error(String matchedResponderId, ActionData data) {
+    public static @NotNull MatchResult error(String matchedResponderId, ActionParam data) {
         return new MatchResult(matchedResponderId, ResponseStatus.ERROR, data);
     }
 
-    public static @NotNull MatchResult failure(String matchedResponderId, ActionData data) {
+    public static @NotNull MatchResult failure(String matchedResponderId, ActionParam data) {
         return new MatchResult(matchedResponderId, ResponseStatus.FAILURE, data);
     }
 
@@ -47,19 +47,19 @@ public record MatchResult(String matchedResponderId, ResponseStatus status, Acti
         return new MatchResult(matchedResponderId, ResponseStatus.UNDEFINE, null);
     }
 
-    public static @NotNull MatchResult ok(ActionData data) {
+    public static @NotNull MatchResult ok(ActionParam data) {
         return new MatchResult(Strings.EMPTY, ResponseStatus.OK, data);
     }
 
-    public static @NotNull MatchResult error(ActionData data) {
+    public static @NotNull MatchResult error(ActionParam data) {
         return new MatchResult(Strings.EMPTY, ResponseStatus.ERROR, data);
     }
 
-    public static @NotNull MatchResult failure(ActionData data) {
+    public static @NotNull MatchResult failure(ActionParam data) {
         return new MatchResult(Strings.EMPTY, ResponseStatus.FAILURE, data);
     }
 
-    public static @NotNull MatchResult undefine(ActionData data) {
+    public static @NotNull MatchResult undefine(ActionParam data) {
         return new MatchResult(Strings.EMPTY, ResponseStatus.UNDEFINE, data);
     }
 

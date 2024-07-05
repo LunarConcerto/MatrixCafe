@@ -1,12 +1,13 @@
 package cafe.lunarconcerto.matrixcafe.api.data.message;
 
 import cafe.lunarconcerto.matrixcafe.api.data.message.content.MessageContent;
-import cafe.lunarconcerto.matrixcafe.api.data.response.ProtocolResponse;
+import cafe.lunarconcerto.matrixcafe.api.data.message.content.TextContent;
+import cafe.lunarconcerto.matrixcafe.api.data.response.ProtocolData;
 import cafe.lunarconcerto.matrixcafe.api.data.session.Session;
 import cafe.lunarconcerto.matrixcafe.api.data.session.SessionConfig;
 import cafe.lunarconcerto.matrixcafe.api.data.session.SessionMessageHistory;
 import cafe.lunarconcerto.matrixcafe.api.data.session.SessionMetaInfo;
-import cafe.lunarconcerto.matrixcafe.api.protocol.Bot;
+import cafe.lunarconcerto.matrixcafe.api.bot.Bot;
 import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -50,12 +51,20 @@ public class SessionMessage {
         return new BotMessage(this, content);
     }
 
-    public ProtocolResponse<?> sendReply(MessageContent content){
+    public ProtocolData<?> sendReply(MessageContent content){
         return session.getBot().send(simplyReply(content));
+    }
+
+    public ProtocolData<?> sendReply(String text){
+        return session.getBot().send(simplyReply(new TextContent(text)));
     }
 
     public void sendReplyAsync(MessageContent content){
         session.getBot().sendAsync(simplyReply(content));
+    }
+
+    public void sendReplyAsync(String text){
+        session.getBot().sendAsync(simplyReply(new TextContent(text)));
     }
 
     /**

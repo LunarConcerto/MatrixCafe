@@ -1,6 +1,6 @@
 package cafe.lunarconcerto.matrixcafe.api.data.event;
 
-import cafe.lunarconcerto.matrixcafe.api.common.Bus;
+import cafe.lunarconcerto.matrixcafe.api.application.Bus;
 
 public class SystemEvent implements Event {
 

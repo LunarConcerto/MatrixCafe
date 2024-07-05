@@ -14,9 +14,9 @@ public class BotMessage extends SessionMessage {
     public BotMessage(@NotNull SessionMessage message, MessageContent content){
         super(message.getSession());
         this.message = Message.newBuilder()
-                .bot(message.getBot())
-                .sessionMetaInfo(message.getSessionMetaInfo())
-                .contents(content)
+                .withBot(message.getBot())
+                .withSessionMetaInfo(message.getSessionMetaInfo())
+                .withContents(content)
                 .build();
     }
 

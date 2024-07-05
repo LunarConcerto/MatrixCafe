@@ -12,6 +12,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ConfigurationShouldSave {
 
-    boolean value() default false ;
+    boolean value() default true ;
 
 }

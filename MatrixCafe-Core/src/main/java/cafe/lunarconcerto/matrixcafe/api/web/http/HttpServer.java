@@ -1,7 +1,7 @@
 package cafe.lunarconcerto.matrixcafe.api.web.http;
 
-import cafe.lunarconcerto.matrixcafe.api.config.model.HttpServerInfo;
-import cafe.lunarconcerto.matrixcafe.api.config.model.MatrixCafeConfiguration;
+import cafe.lunarconcerto.matrixcafe.api.config.HttpServerInfo;
+import cafe.lunarconcerto.matrixcafe.api.config.MatrixCafeConfiguration;
 import cafe.lunarconcerto.matrixcafe.api.web.HttpApi;
 import io.javalin.Javalin;
 import lombok.extern.slf4j.Slf4j;

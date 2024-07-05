@@ -1,11 +1,11 @@
 package cafe.lunarconcerto.matrixcafe.api.responder;
 
-import cafe.lunarconcerto.matrixcafe.api.common.intercept.Interception;
-import cafe.lunarconcerto.matrixcafe.api.common.intercept.Interceptor;
+import cafe.lunarconcerto.matrixcafe.api.application.intercept.Interception;
+import cafe.lunarconcerto.matrixcafe.api.application.intercept.Interceptor;
 import cafe.lunarconcerto.matrixcafe.api.data.message.SessionMessage;
-import cafe.lunarconcerto.matrixcafe.api.data.response.ProtocolResponse;
-import cafe.lunarconcerto.matrixcafe.api.data.response.ResponseResult;
-import cafe.lunarconcerto.matrixcafe.api.responder.action.ActionData;
+import cafe.lunarconcerto.matrixcafe.api.data.response.ProtocolData;
+import cafe.lunarconcerto.matrixcafe.api.data.response.Response;
+import cafe.lunarconcerto.matrixcafe.api.responder.action.ActionParam;
 import cafe.lunarconcerto.matrixcafe.api.responder.descriptor.ResponderDescriptor;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -16,13 +16,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public final class InterceptionResponder extends Responder implements Interception<SessionMessage, ProtocolResponse<?>> {
+/**
+ * 可拦截的响应器
+ * 是在所有响应器之上的一层封装, 使得响应器的输入和输出都可以被拦截.
+ */
+public final class InterceptionResponder extends Responder implements Interception<SessionMessage, ProtocolData<?>> {
 
     private final Responder responder ;
 
     private boolean active = true ;
 
-    private final List<Interceptor<SessionMessage, ProtocolResponse<?>>> interceptors ;
+    private final List<Interceptor<SessionMessage, ProtocolData<?>>> interceptors ;
 
     @Contract("_ -> new")
     public static @NotNull InterceptionResponder wrap(final @NotNull Responder responder){
@@ -41,12 +45,12 @@ public final class InterceptionResponder extends Responder implements Intercepti
     }
 
     @Override
-    public ResponseResult<?> respond(@NotNull ActionData data) {
-        if (beforeIntercept(data.message())) return ResponseResult.FAILURE ;
+    public Response<?> respond(@NotNull ActionParam data) {
+        if (beforeIntercept(data.message())) return Response.FAILURE ;
 
-        ResponseResult<?> result = responder.respond(data);
+        Response<?> result = responder.respond(data);
 
-        if (result.isProtocolResponse()) afterIntercept((ProtocolResponse<?>) result.getData());
+        if (result.isProtocolResponse()) afterIntercept((ProtocolData<?>) result.getData());
         return result ;
     }
 
@@ -55,33 +59,33 @@ public final class InterceptionResponder extends Responder implements Intercepti
         return interceptors.stream().allMatch(interceptor -> interceptor.beforeAction(message));
     }
 
-    private void afterIntercept(ProtocolResponse<?> protocolResponse){
-        interceptors.forEach(interceptor -> interceptor.afterAction(protocolResponse));
+    private void afterIntercept(ProtocolData<?> protocolData){
+        interceptors.forEach(interceptor -> interceptor.afterAction(protocolData));
     }
 
     @Override
     @Contract(pure = true)
-    public @NotNull Collection<Interceptor<SessionMessage, ProtocolResponse<?>>> interceptors() {
+    public @NotNull Collection<Interceptor<SessionMessage, ProtocolData<?>>> interceptors() {
         return this.interceptors ;
     }
 
     @Override
-    public void addInterceptor(Interceptor<SessionMessage, ProtocolResponse<?>> interceptor) {
+    public void addInterceptor(Interceptor<SessionMessage, ProtocolData<?>> interceptor) {
         interceptors.add(interceptor);
     }
 
     @Override
-    public void addAllInterceptor(Collection<Interceptor<SessionMessage, ProtocolResponse<?>>> interceptors) {
+    public void addAllInterceptor(Collection<Interceptor<SessionMessage, ProtocolData<?>>> interceptors) {
         this.interceptors.addAll(interceptors);
     }
 
     @Override
-    public void removeInterceptor(Interceptor<SessionMessage, ProtocolResponse<?>> interceptor) {
+    public void removeInterceptor(Interceptor<SessionMessage, ProtocolData<?>> interceptor) {
         interceptors.remove(interceptor);
     }
 
     @Override
-    public void removeAllInterceptor(Collection<Interceptor<SessionMessage, ProtocolResponse<?>>> interceptors) {
+    public void removeAllInterceptor(Collection<Interceptor<SessionMessage, ProtocolData<?>>> interceptors) {
         this.interceptors.removeAll(interceptors);
     }
 

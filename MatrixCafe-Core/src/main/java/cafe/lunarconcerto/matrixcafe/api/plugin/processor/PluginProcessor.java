@@ -57,7 +57,6 @@ public class PluginProcessor extends AbstractAnnotationProcessor {
 
         });
 
-
         String json = Json.write(new PackageContents(pluginInfos));
 
         try {

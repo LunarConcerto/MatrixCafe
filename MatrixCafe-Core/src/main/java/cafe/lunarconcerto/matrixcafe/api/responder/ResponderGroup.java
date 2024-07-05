@@ -7,6 +7,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 
 /**
+ * 响应器组
+ * 用以管理一组同类型的响应器
  * @author LunarConcerto
  * @time 2023/6/2
  */

@@ -11,7 +11,7 @@ import javax.inject.Singleton;
 import java.util.Optional;
 
 @Singleton
-public class MatrixCafeSessionManager implements SessionManager {
+public class  MatrixCafeSessionManager implements SessionManager {
 
     protected Cache<SessionMetaInfo, Session> sessionCache;
 
@@ -41,7 +41,7 @@ public class MatrixCafeSessionManager implements SessionManager {
 
     private Session createSession(@NotNull Message message){
         SessionMetaInfo info = message.getSessionMetaInfo();
-        SessionType type = info.type();
+        SessionType type = info.getType();
         Session session ;
 
         if (type == SessionType.SINGLE_USER){

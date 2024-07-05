@@ -4,7 +4,7 @@ import cafe.lunarconcerto.matrixcafe.api.data.message.content.MessageContent;
 import cafe.lunarconcerto.matrixcafe.api.data.message.content.TextContent;
 import cafe.lunarconcerto.matrixcafe.api.data.session.SessionMetaInfo;
 import cafe.lunarconcerto.matrixcafe.api.data.user.Sender;
-import cafe.lunarconcerto.matrixcafe.api.protocol.Bot;
+import cafe.lunarconcerto.matrixcafe.api.bot.Bot;
 import lombok.Getter;
 import lombok.ToString;
 import org.jetbrains.annotations.Contract;
@@ -21,7 +21,19 @@ import javax.annotation.Nonnull;
 @ToString
 public class Message {
 
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * ===================================================================================================================
+     * Constants
+     * ===================================================================================================================
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
     public static final Message NULL = new Message();
+
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * ===================================================================================================================
+     * Field
+     * ===================================================================================================================
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
     /**
      * 这条消息的标识符ID
@@ -45,6 +57,12 @@ public class Message {
 
     protected Sender<?> sender ;
 
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * ===================================================================================================================
+     * Static Method
+     * ===================================================================================================================
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
     /**
      * 生成一个只包含文本, 而不包含其他信息的消息对象
      * 仅推荐在测试环境下使用
@@ -55,21 +73,19 @@ public class Message {
     @VisibleForTesting
     @Contract("_ -> new")
     public static @NotNull Message simpleText(String text){
-        return Message.newBuilder().contents(TextContent.of(text)).build();
-    }
-
-    @Contract(pure = true)
-    private Message(@NotNull Builder builder) {
-        bot = builder.bot;
-        contents = builder.contents;
-        sessionMetaInfo = builder.sessionMetaInfo;
-        sender = builder.sender;
+        return Message.newBuilder().withContents(TextContent.of(text)).build();
     }
 
     @Contract("_, _, _ -> new")
     public static @NotNull Message of(Bot bot, MessageContent contents, SessionMetaInfo sessionMetaInfo){
         return new Message(bot, contents, sessionMetaInfo);
     }
+
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * ===================================================================================================================
+     * Container
+     * ===================================================================================================================
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
     protected Message() {
         id = generateId();
@@ -90,60 +106,42 @@ public class Message {
         id = generateId();
     }
 
-    public static @NotNull Builder newBuilder(@Nonnull Message copy) {
-        Builder builder = new Builder();
-        builder.bot = copy.getBot();
-        builder.contents = copy.getContents();
-        builder.sessionMetaInfo = copy.getSessionMetaInfo();
-        builder.sender = copy.getSender();
-        return builder;
+    @Contract(pure = true)
+    Message(@NotNull MessageBuilder builder) {
+        bot = builder.getBot();
+        contents = builder.getContents();
+        sessionMetaInfo = builder.getSessionMetaInfo();
+        sender = builder.getSender();
     }
+
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * ===================================================================================================================
+     * Protected Method
+     * ===================================================================================================================
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
     protected long generateId() {
         return sessionMetaInfo.hashCode() + System.currentTimeMillis();
     }
 
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * ===================================================================================================================
+     * Inner Builder
+     * ===================================================================================================================
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+    public static @NotNull MessageBuilder newBuilder(@Nonnull Message copy) {
+        MessageBuilder builder = new MessageBuilder();
+        builder.withBot(copy.getBot());
+        builder.withContents(copy.getContents());
+        builder.withSessionMetaInfo(copy.getSessionMetaInfo());
+        builder.withSender(copy.getSender());
+        return builder;
+    }
+
     @Contract(value = " -> new", pure = true)
-    public static @NotNull Builder newBuilder() {
-        return new Builder();
+    public static @NotNull MessageBuilder newBuilder() {
+        return new MessageBuilder();
     }
 
-    public static final class Builder {
-        private Bot bot;
-        private MessageContent contents;
-        private SessionMetaInfo sessionMetaInfo;
-        private Sender<?> sender;
-
-        private Builder() {
-        }
-
-        @Nonnull
-        public Builder bot(@Nonnull Bot bot) {
-            this.bot = bot;
-            return this;
-        }
-
-        @Nonnull
-        public Builder contents(@Nonnull MessageContent contents) {
-            this.contents = contents;
-            return this;
-        }
-
-        @Nonnull
-        public Builder sessionMetaInfo(@Nonnull SessionMetaInfo sessionMetaInfo) {
-            this.sessionMetaInfo = sessionMetaInfo;
-            return this;
-        }
-
-        @Nonnull
-        public Builder sender(@Nonnull Sender<?> sender) {
-            this.sender = sender;
-            return this;
-        }
-
-        @Nonnull
-        public Message build() {
-            return new Message(this);
-        }
-    }
 }

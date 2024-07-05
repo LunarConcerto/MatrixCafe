@@ -1,6 +1,6 @@
 package cafe.lunarconcerto.matrixcafe.api.plugin;
 
-import cafe.lunarconcerto.matrixcafe.api.common.DirectoryConstants;
+import cafe.lunarconcerto.matrixcafe.api.application.DirectoryConstants;
 import cafe.lunarconcerto.matrixcafe.api.util.Lists;
 import lombok.Getter;
 

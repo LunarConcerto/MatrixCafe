@@ -1,6 +1,6 @@
 package cafe.lunarconcerto.matrixcafe.api.web;
 
-import cafe.lunarconcerto.matrixcafe.api.common.Bus;
+import cafe.lunarconcerto.matrixcafe.api.application.Bus;
 import cafe.lunarconcerto.matrixcafe.api.web.http.HttpServer;
 import org.greenrobot.eventbus.Subscribe;
 import org.jetbrains.annotations.NotNull;

@@ -1,6 +1,6 @@
 package cafe.lunarconcerto.matrixcafe.api.data.event.time;
 
-import cafe.lunarconcerto.matrixcafe.api.config.model.MatrixCafeConfiguration;
+import cafe.lunarconcerto.matrixcafe.api.config.MatrixCafeConfiguration;
 
 /**
  * 心跳事件

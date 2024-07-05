@@ -1,6 +1,6 @@
 package cafe.lunarconcerto.matrixcafe.api.data.notice;
 
-import cafe.lunarconcerto.matrixcafe.api.protocol.Bot;
+import cafe.lunarconcerto.matrixcafe.api.bot.Bot;
 
 public class TextNotice extends Notice<String> {
 

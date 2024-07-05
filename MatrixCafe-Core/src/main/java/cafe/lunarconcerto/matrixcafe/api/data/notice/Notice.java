@@ -1,6 +1,6 @@
 package cafe.lunarconcerto.matrixcafe.api.data.notice;
 
-import cafe.lunarconcerto.matrixcafe.api.protocol.Bot;
+import cafe.lunarconcerto.matrixcafe.api.bot.Bot;
 
 /**
  * 对于目标平台的通知的抽象,

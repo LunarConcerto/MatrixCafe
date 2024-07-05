@@ -1,6 +1,6 @@
 package cafe.lunarconcerto.matrixcafe.api.plugin;
 
-import cafe.lunarconcerto.matrixcafe.api.common.ApplicationContext;
+import cafe.lunarconcerto.matrixcafe.api.application.ApplicationContext;
 import cafe.lunarconcerto.matrixcafe.api.extension.ExtensionRegistry;
 import cafe.lunarconcerto.matrixcafe.api.plugin.model.PluginError;
 

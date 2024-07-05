@@ -2,7 +2,7 @@ package cafe.lunarconcerto.matrixcafe.impl;
 
 import cafe.lunarconcerto.matrixcafe.api.extension.Extension;
 import cafe.lunarconcerto.matrixcafe.api.extension.ExtensionManager;
-import cafe.lunarconcerto.matrixcafe.api.protocol.Adapter;
+import cafe.lunarconcerto.matrixcafe.api.extension.adapter.Adapter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;

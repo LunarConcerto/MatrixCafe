@@ -19,17 +19,17 @@ public record SessionType(String type) {
     /**
      * 单用户类型. 即私聊等.
      */
-    public static final SessionType SINGLE_USER = new SessionType("single");
+    public static final SessionType SINGLE_USER = of("single");
 
     /**
      * 多用户类型. 即群聊等.
      */
-    public static final SessionType MULTI_USER = new SessionType("multi");
+    public static final SessionType MULTI_USER = of("multi");
 
     /**
      * 未知类型. 默认类型.
      */
-    public static final SessionType UNKNOWN = new SessionType("unknown");
+    public static final SessionType UNKNOWN = of("unknown");
 
     private static final HashMap<String, SessionType> SESSION_TYPE_MAP = new HashMap<>();
 
@@ -57,7 +57,6 @@ public record SessionType(String type) {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof SessionType that)) return false;
-
         return Objects.equals(type, that.type);
     }
 
